@@ -18,8 +18,9 @@ public class LogicSimulatorTest
     }
 
     @Test
-    public void testGetSimulationResult() throws IOException {
-        /*LogicSimulator logicSimulator = new LogicSimulator();
+    public void testGetSimulationResult() throws IOException
+    {
+        LogicSimulator logicSimulator = new LogicSimulator();
 
         logicSimulator.load(file1Path);
 
@@ -32,7 +33,7 @@ public class LogicSimulatorTest
                 "i i i | o\n" +
                 "1 2 3 | 1\n" +
                 "------+--\n" +
-                "0 1 1 | 0\n", logicSimulator.getSimulationResult(inputValues));*/
+                "0 1 1 | 0\n", logicSimulator.getSimulationResult(inputValues));
     }
 
     /*@Test

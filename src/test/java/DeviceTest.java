@@ -96,8 +96,8 @@ public class DeviceTest
         gateAND.addInputPin(iPin2);
 
         assertEquals(false, gateAND.getOutput());
-        // 1 AND 0
 
+        // 1 AND 0
         iPin1 = new IPin();
         iPin2 = new IPin();
         iPin1.setInput(true);
@@ -110,7 +110,6 @@ public class DeviceTest
         assertEquals(false, gateAND.getOutput());
 
         // 1 AND 1
-
         iPin1 = new IPin();
         iPin2 = new IPin();
         iPin1.setInput(true);
@@ -153,7 +152,6 @@ public class DeviceTest
         assertEquals(true, gateOR.getOutput());
 
         // 1 OR 0
-
         iPin1 = new IPin();
         iPin2 = new IPin();
         iPin1.setInput(true);
@@ -166,7 +164,6 @@ public class DeviceTest
         assertEquals(true, gateOR.getOutput());
 
         // 1 OR 1
-
         iPin1 = new IPin();
         iPin2 = new IPin();
         iPin1.setInput(true);
