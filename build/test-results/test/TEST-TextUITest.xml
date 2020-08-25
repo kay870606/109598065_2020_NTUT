@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TextUITest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-08-25T13:11:54" hostname="DESKTOP-M3HG7AS" time="0.017">
+  <properties/>
+  <testcase name="testTextUI" classname="TextUITest" time="0.017"/>
+  <system-out><![CDATA[1. Load logic circuit file
+2. Simulation
+3. Display truth table
+4. Exit
+Command :
+1. Load logic circuit file
+2. Simulation
+3. Display truth table
+4. Exit
+Command :
+Error.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

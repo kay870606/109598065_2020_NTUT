@@ -6,14 +6,9 @@ public class LogicSimulator {
     private Vector<Device> iPins;
     private Vector<Device> oPins;
 
-    public LogicSimulator() {
-        circuits = new Vector<>();
-        iPins = new Vector<>();
-        oPins = new Vector<>();
-    }
-
     public boolean load(String path) throws IOException {
         boolean isLoad = false;
+        dd();
         File file = new File(path);
         if (file.canRead()) {
             double[][] fileContent = getFileContent(file);
@@ -60,15 +55,22 @@ public class LogicSimulator {
         return truthTable;
     }
 
-    public int getCircuitSize() {
+    public int getCircuitsSize() {
         return circuits.size();
     }
-    public int getIPinsSize() {
+    
+    public int getInputPinsSize() {
         return iPins.size();
     }
 
-    public int getOPinsSize() {
+    public int getOutputPinsSize() {
         return oPins.size();
+    }
+
+    private void dd(){
+        circuits = new Vector<>();
+        iPins = new Vector<>();
+        oPins = new Vector<>();
     }
 
     private String getTableTopString() {

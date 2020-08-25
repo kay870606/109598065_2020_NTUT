@@ -16,6 +16,22 @@ public class LogicSimulatorTest {
     }
 
     @Test
+    public void testLoad() throws IOException {
+        LogicSimulator logicSimulator = new LogicSimulator();
+
+        assertFalse(logicSimulator.load("FILE_NOT_EXIST"));
+        assertTrue(logicSimulator.load(file1Path));
+        assertEquals(3, logicSimulator.getInputPinsSize());
+        assertEquals(1, logicSimulator.getOutputPinsSize());
+        assertEquals(3, logicSimulator.getCircuitsSize());
+
+        assertTrue(logicSimulator.load(file2Path));
+        assertEquals(3, logicSimulator.getInputPinsSize());
+        assertEquals(2, logicSimulator.getOutputPinsSize());
+        assertEquals(5, logicSimulator.getCircuitsSize());
+    }
+
+    @Test
     public void testGetSimulationResult() throws IOException {
         LogicSimulator logicSimulator = new LogicSimulator();
 

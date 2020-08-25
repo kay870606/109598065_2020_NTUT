@@ -41,7 +41,7 @@ public class TextUI {
         }
     }
 
-    void processLoad(LogicSimulator ls) throws IOException {
+    private void processLoad(LogicSimulator ls) throws IOException {
         System.out.println("Please key in a file path: ");
 
         String path;
@@ -52,20 +52,20 @@ public class TextUI {
             System.out.println("File not found or file format error!!");
             System.out.println();
         } else {
-            System.out.println("Circuit: " + ls.getIPinsSize() + " input pins, " + ls.getOPinsSize()
-                    + " output pins and " + ls.getCircuitSize());
+            System.out.println("Circuit: " + ls.getInputPinsSize() + " input pins, " + ls.getOutputPinsSize()
+                    + " output pins and " + ls.getCircuitsSize());
             System.out.println();
         }
     }
 
-    void processSimulation(LogicSimulator ls) {
-        if (ls.getIPinsSize() == 0) {
+    private void processSimulation(LogicSimulator ls) {
+        if (ls.getInputPinsSize() == 0) {
             System.out.println("Please load an lcf file, before using this operation.");
             System.out.println();
         } else {
-            Vector<Integer> simulationInput = new Vector<>();
+            Vector<Boolean> simulationInput = new Vector<>();
 
-            for (int i = 1; i <= ls.getIPinsSize(); i++) {
+            for (int i = 1; i <= ls.getInputPinsSize(); i++) {
                 System.out.println("Please key in the value of input pin " + i + ": ");
 
                 String pinStr;
@@ -79,15 +79,15 @@ public class TextUI {
                     i--;
                     continue;
                 } else {
-                    simulationInput.add(pinValue);
+                    simulationInput.add(pinValue > 0 ? Boolean.TRUE : Boolean.FALSE);
                 }
             }
             System.out.println(ls.getSimulationResult(simulationInput));
         }
     }
 
-    void processDisplayTruthTable(LogicSimulator ls) {
-        if (ls.getIPinsSize() == 0) {
+    private void processDisplayTruthTable(LogicSimulator ls) {
+        if (ls.getInputPinsSize() == 0) {
             System.out.println("Please load an lcf file, before using this operation.");
             System.out.println();
         } else {
@@ -95,7 +95,7 @@ public class TextUI {
         }
     }
 
-    void processExit() {
+    private void processExit() {
         System.out.println("Goodbye, thanks for using LS. ");
     }
 }
