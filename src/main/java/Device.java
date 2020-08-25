@@ -1,26 +1,21 @@
 import java.util.Vector;
 
-public class Device
-{
+public class Device {
     protected Vector<Device> iPins;
 
-    public Device()
-    {
+    public Device() {
         iPins = new Vector<>();
     }
 
-    public void addInputPin(Device iPin)
-    {
+    public void addInputPin(Device iPin) {
         iPins.add(iPin);
     }
 
-    public void setInput(boolean value)
-    {
+    public void setInput(boolean value) {
         throw new RuntimeException("This method doesn't allow to call.");
     }
 
-    public boolean getOutput()
-    {
+    public boolean getOutput() {
         throw new RuntimeException("This method doesn't allow to call.");
     }
 }

@@ -5,14 +5,12 @@ import java.util.Vector;
 
 import static org.junit.Assert.*;
 
-public class LogicSimulatorTest
-{
+public class LogicSimulatorTest {
     String file1Path;
     String file2Path;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         file1Path = "src/File1.lcf";
         file2Path = "src/File2.lcf";
     }

@@ -1,23 +1,20 @@
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
-public class DeviceTest
-{
+public class DeviceTest {
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         // This method is called "BEFORE" the time when a test is executed.
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
         // This method is called "AFTER" the time when a test is executed.
     }
 
     @Test
-    public void testDevicePolymorphism()
-    {
+    public void testDevicePolymorphism() {
         Device device = new IPin();
         assertEquals(IPin.class.getName(), device.getClass().getName());
 
@@ -25,8 +22,7 @@ public class DeviceTest
     }
 
     @Test
-    public void testIPinAndOPin()
-    {
+    public void testIPinAndOPin() {
         // 0 = 0
         IPin iPin = new IPin();
         iPin.setInput(false);
@@ -47,8 +43,7 @@ public class DeviceTest
     }
 
     @Test
-    public void testGateNOT()
-    {
+    public void testGateNOT() {
         // NOT 0 = 1
         IPin iPin = new IPin();
         iPin.setInput(false);
@@ -69,8 +64,7 @@ public class DeviceTest
     }
 
     @Test
-    public void testGateAND()
-    {
+    public void testGateAND() {
         // 0 AND 0 = 0
         IPin iPin1 = new IPin();
         IPin iPin2 = new IPin();
@@ -123,8 +117,7 @@ public class DeviceTest
     }
 
     @Test
-    public void testGateOR()
-    {
+    public void testGateOR() {
         // 0 OR 0 = 0
         IPin iPin1 = new IPin();
         IPin iPin2 = new IPin();

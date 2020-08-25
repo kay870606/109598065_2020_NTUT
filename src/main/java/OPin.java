@@ -1,8 +1,6 @@
-public class OPin extends Device
-{
+public class OPin extends Device {
     @Override
-    public boolean getOutput()
-    {
+    public boolean getOutput() {
         return iPins.get(0).getOutput();
     }
 }

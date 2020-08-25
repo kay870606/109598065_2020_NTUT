@@ -1,29 +1,24 @@
 import java.io.*;
 import java.util.Vector;
 
-public class LogicSimulator
-{
+public class LogicSimulator {
     private Vector<Device> circuits;
     private Vector<Device> iPins;
     private Vector<Device> oPins;
 
-    public LogicSimulator()
-    {
+    public LogicSimulator() {
         circuits = new Vector<>();
         iPins = new Vector<>();
         oPins = new Vector<>();
     }
 
-    public boolean load(String path) throws IOException
-    {
+    public boolean load(String path) throws IOException {
         boolean isLoad = false;
-
         File file = new File(path);
         if (file.canRead()) {
-
-            double[][] vector = getDoubleVectorFromFileContent(file);
+            double[][] vector = getFileContent(file);
             int[] searchOutput = new int[circuits.size()];
-            for(int i = 0;i< circuits.size();i++){
+            for (int i = 0; i < circuits.size(); i++) {
                 searchOutput[i] = 1;
             }
 
@@ -54,74 +49,64 @@ public class LogicSimulator
         return isLoad;
     }
 
-    public String getSimulationResult(Vector<Boolean> booleans)
-    {
+    public String getSimulationResult(Vector<Boolean> booleans) {
         String simulationResult = "Simulation Result:\n" + getTableTopString();
         for (int i = 0; i < iPins.size(); i++) {
-            simulationResult += (booleans.get(i)== true ? 1:0) + " ";
+            simulationResult += (booleans.get(i) == true ? 1 : 0) + " ";
             iPins.get(i).setInput(booleans.get(i));
         }
-        simulationResult += "| " + (oPins.get(0).getOutput()== true ? 1: 0) + "\n";
+        simulationResult += "| " + (oPins.get(0).getOutput() == true ? 1 : 0) + "\n";
         return simulationResult;
     }
 
-    public String getTruthTable()
-    {
+    public String getTruthTable() {
         String truthTable = "Truth table:\n" + getTableTopString();
         for (int i = 0; i < (1 << iPins.size()); i++) {
             int k = 0;
             for (int j = (1 << (iPins.size() - 1)); j > 0; j /= 2) {
                 int bit = ((i & j) > 0) ? 1 : 0;
-                iPins.get(k++).setInput(bit > 0  ? true : false);
+                iPins.get(k++).setInput(bit > 0 ? true : false);
                 truthTable += bit + " ";
             }
             truthTable += "|";
-            for(int x = 0 ; x<oPins.size();x++){
-                truthTable +=  " " + (oPins.get(x).getOutput() == true ? 1: 0);
+            for (int j = 0; j < oPins.size(); j++) {
+                truthTable += " " + (oPins.get(j).getOutput() == true ? 1 : 0);
             }
             truthTable += "\n";
-            //truthTable += "| " + (oPins.get(0).getOutput() == true ? 1: 0) + "\n";
         }
         return truthTable;
     }
 
-    private String getTableTopString()
-    {
+    private String getTableTopString() {
         String tableTopString = "";
         for (int i = 0; i < iPins.size(); i++) {
             tableTopString += "i ";
         }
-
         tableTopString += "|";
-        for (int i = 1; i <= oPins.size(); i++) {
+        for (int i = 0; i < oPins.size(); i++) {
             tableTopString += " o";
         }
         tableTopString += "\n";
-
         for (int i = 1; i <= iPins.size(); i++) {
             tableTopString += i + " ";
         }
-
         tableTopString += "|";
         for (int i = 1; i <= oPins.size(); i++) {
-            tableTopString += " " +i;
+            tableTopString += " " + i;
         }
         tableTopString += "\n";
-
         for (int i = 0; i < iPins.size(); i++) {
             tableTopString += "--";
         }
-        //tableTopString += "+--\n";
         tableTopString += "+";
-        for (int i = 1; i <= oPins.size(); i++) {
+        for (int i = 0; i < oPins.size(); i++) {
             tableTopString += "--";
         }
         tableTopString += "\n";
         return tableTopString;
     }
 
-    private double[][] getDoubleVectorFromFileContent(File file) throws IOException
-    {
+    private double[][] getFileContent(File file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line = br.readLine();
         int iPinsNumber = Integer.parseInt(line);
@@ -131,29 +116,30 @@ public class LogicSimulator
 
         line = br.readLine();
         int gatesNumber = Integer.parseInt(line);
-
-        double[][] vectors = new double[gatesNumber][1024];
-
+        double[][] doubles = new double[gatesNumber][1024];
         for (int i = 0; i < gatesNumber; i++) {
             line = br.readLine();
             String[] tokens = line.split(" ");
             boolean isFirst = true;
             int j = 0;
-            for (String token:tokens) {
-                if(isFirst){
+            for (String token : tokens) {
+                if (isFirst) {
                     int gateType = Integer.parseInt(token);
-                    if (gateType == 1) circuits.add(new GateAND());
-                    else if (gateType == 2) circuits.add(new GateOR());
-                    else if (gateType == 3) circuits.add(new GateNOT());
+                    AccordingToGateTypeToJoinCircuits(gateType);
                     isFirst = false;
-                }
-                else {
+                } else {
                     double value = Double.parseDouble(token);
-                    vectors[i][j++] = value;
-                    if (value == 0)break;
+                    doubles[i][j++] = value;
+                    if (value == 0) break;
                 }
             }
         }
-        return vectors;
+        return doubles;
+    }
+
+    private void AccordingToGateTypeToJoinCircuits(int gateType) {
+        if (gateType == 1) circuits.add(new GateAND());
+        else if (gateType == 2) circuits.add(new GateOR());
+        else if (gateType == 3) circuits.add(new GateNOT());
     }
 }
