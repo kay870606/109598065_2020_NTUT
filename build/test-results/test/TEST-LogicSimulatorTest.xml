@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="LogicSimulatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-08-25T03:56:03" hostname="CSIE-3-4" time="0.008">
+<testsuite name="LogicSimulatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-08-25T08:38:39" hostname="CSIE-3-4" time="0.008">
   <properties/>
   <testcase name="testGetTruthTable" classname="LogicSimulatorTest" time="0.008"/>
   <system-out><![CDATA[]]></system-out>

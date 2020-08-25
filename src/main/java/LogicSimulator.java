@@ -16,29 +16,12 @@ public class LogicSimulator {
         boolean isLoad = false;
         File file = new File(path);
         if (file.canRead()) {
-            double[][] vector = getFileContent(file);
+            double[][] fileContent = getFileContent(file);
             int[] searchOutput = new int[circuits.size()];
             for (int i = 0; i < circuits.size(); i++) {
                 searchOutput[i] = 1;
             }
-
-            for (int i = 0; i < circuits.size(); i++) {
-                int j = 0;
-                while (true) {
-                    double value = vector[i][j++];
-                    if (value == 0.0) {
-                        break;
-                    } else if (value < 0.0) {
-                        int index = (int) Math.abs(value) - 1;
-                        circuits.get(i).addInputPin(iPins.get(index));
-                    } else {
-                        int index = (int) Math.floor(value) - 1;
-                        circuits.get(i).addInputPin(circuits.get(index));
-                        searchOutput[index] = 0;
-                    }
-                }
-            }
-
+            connectCircuits(fileContent, searchOutput);
             for (int i = 0; i < circuits.size(); i++) {
                 if (searchOutput[i] == 1) {
                     oPins.add(circuits.get(i));
@@ -125,7 +108,7 @@ public class LogicSimulator {
             for (String token : tokens) {
                 if (isFirst) {
                     int gateType = Integer.parseInt(token);
-                    AccordingToGateTypeToJoinCircuits(gateType);
+                    accordingToGateTypeToJoinCircuits(gateType);
                     isFirst = false;
                 } else {
                     double value = Double.parseDouble(token);
@@ -137,7 +120,26 @@ public class LogicSimulator {
         return doubles;
     }
 
-    private void AccordingToGateTypeToJoinCircuits(int gateType) {
+    private void connectCircuits(double[][] doubles, int[] searchOutput) {
+        for (int i = 0; i < circuits.size(); i++) {
+            int j = 0;
+            while (true) {
+                double value = doubles[i][j++];
+                if (value == 0.0) {
+                    break;
+                } else if (value < 0.0) {
+                    int index = (int) Math.abs(value) - 1;
+                    circuits.get(i).addInputPin(iPins.get(index));
+                } else {
+                    int index = (int) Math.floor(value) - 1;
+                    circuits.get(i).addInputPin(circuits.get(index));
+                    searchOutput[index] = 0;
+                }
+            }
+        }
+    }
+
+    private void accordingToGateTypeToJoinCircuits(int gateType) {
         if (gateType == 1) circuits.add(new GateAND());
         else if (gateType == 2) circuits.add(new GateOR());
         else if (gateType == 3) circuits.add(new GateNOT());
