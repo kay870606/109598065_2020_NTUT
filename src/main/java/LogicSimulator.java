@@ -21,33 +21,35 @@ public class LogicSimulator
         File file = new File(path);
         if (file.canRead()) {
 
-            Vector<Vector<Double>> vector = getDoubleVectorFromFileContent(file);
-            Vector<Integer> searchOutput = new Vector<Integer>(circuits.size(), 1);
+            double[][] vector = getDoubleVectorFromFileContent(file);
+            int[] searchOutput = new int[circuits.size()];
+            for(int i = 0;i< circuits.size();i++){
+                searchOutput[i] = 1;
+            }
 
             for (int i = 0; i < circuits.size(); i++) {
                 int j = 0;
                 while (true) {
-                    double value = vector.get(i).get(j++);
-                    if (value == 0) {
+                    double value = vector[i][j++];
+                    if (value == 0.0) {
                         break;
-                    } else if (value < 0) {
+                    } else if (value < 0.0) {
                         int index = (int) Math.abs(value) - 1;
                         circuits.get(i).addInputPin(iPins.get(index));
                     } else {
                         int index = (int) Math.floor(value) - 1;
                         circuits.get(i).addInputPin(circuits.get(index));
-                        searchOutput.set(index, 0);
+                        searchOutput[index] = 0;
                     }
                 }
             }
 
             for (int i = 0; i < circuits.size(); i++) {
-                if (searchOutput.get(i) == 1) {
+                if (searchOutput[i] == 1) {
                     oPins.add(circuits.get(i));
                     break;
                 }
             }
-
             isLoad = true;
         }
         return isLoad;
@@ -57,25 +59,25 @@ public class LogicSimulator
     {
         String simulationResult = "Simulation Result:\n" + getTableTopString();
         for (int i = 0; i < iPins.size(); i++) {
-            simulationResult += booleans.get(i) + " ";
+            simulationResult += (booleans.get(i)== true ? 1:0) + " ";
             iPins.get(i).setInput(booleans.get(i));
         }
-        simulationResult += "| " + oPins.get(0).getOutput() + "\n";
+        simulationResult += "| " + (oPins.get(0).getOutput()== true ? 1: 0) + "\n";
         return simulationResult;
     }
 
     public String getTruthTable()
     {
         String truthTable = "Truth table:\n" + getTableTopString();
-        /*for (int i = 0; i < (1 << iPins.size()); i++) {
+        for (int i = 0; i < (1 << iPins.size()); i++) {
             int k = 0;
             for (int j = (1 << (iPins.size() - 1)); j > 0; j /= 2) {
-                // boolean bit = (i & j ? true : false);
-                iPins.get(k++).setInput(bit);
+                int bit = ((i & j) > 0) ? 1 : 0;
+                iPins.get(k++).setInput(bit > 0  ? true : false);
                 truthTable += bit + " ";
             }
-            truthTable += "| " + oPins.get(0).getOutput() + "\n";
-        }*/
+            truthTable += "| " + (oPins.get(0).getOutput()== true ? 1: 0) + "\n";
+        }
         return truthTable;
     }
 
@@ -97,7 +99,7 @@ public class LogicSimulator
         return tableTopString;
     }
 
-    private Vector<Vector<Double>> getDoubleVectorFromFileContent(File file) throws IOException
+    private double[][] getDoubleVectorFromFileContent(File file) throws IOException
     {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line = br.readLine();
@@ -108,11 +110,14 @@ public class LogicSimulator
 
         line = br.readLine();
         int gatesNumber = Integer.parseInt(line);
-        Vector<Vector<Double>> vectors = new Vector<Vector<Double>>(gatesNumber);
+
+        double[][] vectors = new double[gatesNumber][1024];
+
         for (int i = 0; i < gatesNumber; i++) {
             line = br.readLine();
             String[] tokens = line.split(" ");
             boolean isFirst = true;
+            int j = 0;
             for (String token:tokens) {
                 if(isFirst){
                     int gateType = Integer.parseInt(token);
@@ -123,7 +128,7 @@ public class LogicSimulator
                 }
                 else {
                     double value = Double.parseDouble(token);
-                    vectors.get(i).add(value);
+                    vectors[i][j++] = value;
                     if (value == 0)break;
                 }
             }

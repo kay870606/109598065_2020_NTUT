@@ -36,9 +36,8 @@ public class LogicSimulatorTest
                 "0 1 1 | 0\n", logicSimulator.getSimulationResult(inputValues));
     }
 
-    /*@Test
-    public void testGetTruthTable()
-    {
+    @Test
+    public void testGetTruthTable() throws IOException {
         LogicSimulator logicSimulator = new LogicSimulator();
 
         logicSimulator.load(file1Path);
@@ -55,5 +54,5 @@ public class LogicSimulatorTest
                 "1 0 1 | 1\n" +
                 "1 1 0 | 0\n" +
                 "1 1 1 | 0\n", logicSimulator.getTruthTable());
-    }*/
+    }
 }
