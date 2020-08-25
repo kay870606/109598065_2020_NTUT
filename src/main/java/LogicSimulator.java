@@ -47,7 +47,6 @@ public class LogicSimulator
             for (int i = 0; i < circuits.size(); i++) {
                 if (searchOutput[i] == 1) {
                     oPins.add(circuits.get(i));
-                    break;
                 }
             }
             isLoad = true;
@@ -76,7 +75,12 @@ public class LogicSimulator
                 iPins.get(k++).setInput(bit > 0  ? true : false);
                 truthTable += bit + " ";
             }
-            truthTable += "| " + (oPins.get(0).getOutput()== true ? 1: 0) + "\n";
+            truthTable += "|";
+            for(int x = 0 ; x<oPins.size();x++){
+                truthTable +=  " " + (oPins.get(x).getOutput() == true ? 1: 0);
+            }
+            truthTable += "\n";
+            //truthTable += "| " + (oPins.get(0).getOutput() == true ? 1: 0) + "\n";
         }
         return truthTable;
     }
@@ -87,15 +91,32 @@ public class LogicSimulator
         for (int i = 0; i < iPins.size(); i++) {
             tableTopString += "i ";
         }
-        tableTopString += "| o\n";
+
+        tableTopString += "|";
+        for (int i = 1; i <= oPins.size(); i++) {
+            tableTopString += " o";
+        }
+        tableTopString += "\n";
+
         for (int i = 1; i <= iPins.size(); i++) {
             tableTopString += i + " ";
         }
-        tableTopString += "| 1\n";
+
+        tableTopString += "|";
+        for (int i = 1; i <= oPins.size(); i++) {
+            tableTopString += " " +i;
+        }
+        tableTopString += "\n";
+
         for (int i = 0; i < iPins.size(); i++) {
             tableTopString += "--";
         }
-        tableTopString += "+--\n";
+        //tableTopString += "+--\n";
+        tableTopString += "+";
+        for (int i = 1; i <= oPins.size(); i++) {
+            tableTopString += "--";
+        }
+        tableTopString += "\n";
         return tableTopString;
     }
 
