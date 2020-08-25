@@ -60,6 +60,17 @@ public class LogicSimulator {
         return truthTable;
     }
 
+    public int getCircuitSize() {
+        return circuits.size();
+    }
+    public int getIPinsSize() {
+        return iPins.size();
+    }
+
+    public int getOPinsSize() {
+        return oPins.size();
+    }
+
     private String getTableTopString() {
         String tableTopString = "";
         for (int i = 0; i < iPins.size(); i++) {
