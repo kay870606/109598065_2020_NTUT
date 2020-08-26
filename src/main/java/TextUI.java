@@ -48,14 +48,13 @@ public class TextUI {
         Scanner scanner = new Scanner(System.in);
         path = scanner.next();
 
-        if (ls.load(path) == false) {
+        if (!ls.load(path)) {
             System.out.println("File not found or file format error!!");
-            System.out.println();
         } else {
             System.out.println("Circuit: " + ls.getInputPinsSize() + " input pins, " + ls.getOutputPinsSize()
                     + " output pins and " + ls.getCircuitsSize());
-            System.out.println();
         }
+        System.out.println();
     }
 
     private void processSimulation(LogicSimulator ls) {
@@ -77,7 +76,6 @@ public class TextUI {
                 if (pinValue != 0 && pinValue != 1) {
                     System.out.println("The value of input pin must be 0/1");
                     i--;
-                    continue;
                 } else {
                     simulationInput.add(pinValue > 0 ? Boolean.TRUE : Boolean.FALSE);
                 }

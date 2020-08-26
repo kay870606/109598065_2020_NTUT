@@ -28,31 +28,31 @@ public class LogicSimulator {
     }
 
     public String getSimulationResult(Vector<Boolean> booleans) {
-        String simulationResult = "Simulation Result:\n" + getTableTopString();
+        StringBuilder simulationResult = new StringBuilder("Simulation Result:\n" + getTableTopString());
         for (int i = 0; i < iPins.size(); i++) {
-            simulationResult += (booleans.get(i) == true ? 1 : 0) + " ";
+            simulationResult.append(booleans.get(i) ? 1 : 0).append(" ");
             iPins.get(i).setInput(booleans.get(i));
         }
-        simulationResult += "| " + (oPins.get(0).getOutput() == true ? 1 : 0) + "\n";
-        return simulationResult;
+        simulationResult.append("| ").append(oPins.get(0).getOutput() ? 1 : 0).append("\n");
+        return simulationResult.toString();
     }
 
     public String getTruthTable() {
-        String truthTable = "Truth table:\n" + getTableTopString();
+        StringBuilder truthTable = new StringBuilder("Truth table:\n" + getTableTopString());
         for (int i = 0; i < (1 << iPins.size()); i++) {
             int k = 0;
             for (int j = (1 << (iPins.size() - 1)); j > 0; j /= 2) {
                 int bit = ((i & j) > 0) ? 1 : 0;
-                iPins.get(k++).setInput(bit > 0 ? true : false);
-                truthTable += bit + " ";
+                iPins.get(k++).setInput(bit > 0);
+                truthTable.append(bit).append(" ");
             }
-            truthTable += "|";
-            for (int j = 0; j < oPins.size(); j++) {
-                truthTable += " " + (oPins.get(j).getOutput() == true ? 1 : 0);
+            truthTable.append("|");
+            for (Device oPin : oPins) {
+                truthTable.append(" ").append(oPin.getOutput() ? 1 : 0);
             }
-            truthTable += "\n";
+            truthTable.append("\n");
         }
-        return truthTable;
+        return truthTable.toString();
     }
 
     public int getCircuitsSize() {
@@ -74,32 +74,32 @@ public class LogicSimulator {
     }
 
     private String getTableTopString() {
-        String tableTopString = "";
+        StringBuilder tableTopString = new StringBuilder();
         for (int i = 0; i < iPins.size(); i++) {
-            tableTopString += "i ";
+            tableTopString.append("i ");
         }
-        tableTopString += "|";
+        tableTopString.append("|");
         for (int i = 0; i < oPins.size(); i++) {
-            tableTopString += " o";
+            tableTopString.append(" o");
         }
-        tableTopString += "\n";
+        tableTopString.append("\n");
         for (int i = 1; i <= iPins.size(); i++) {
-            tableTopString += i + " ";
+            tableTopString.append(i).append(" ");
         }
-        tableTopString += "|";
+        tableTopString.append("|");
         for (int i = 1; i <= oPins.size(); i++) {
-            tableTopString += " " + i;
+            tableTopString.append(" ").append(i);
         }
-        tableTopString += "\n";
+        tableTopString.append("\n");
         for (int i = 0; i < iPins.size(); i++) {
-            tableTopString += "--";
+            tableTopString.append("--");
         }
-        tableTopString += "+";
+        tableTopString.append("+");
         for (int i = 0; i < oPins.size(); i++) {
-            tableTopString += "--";
+            tableTopString.append("--");
         }
-        tableTopString += "\n";
-        return tableTopString;
+        tableTopString.append("\n");
+        return tableTopString.toString();
     }
 
     private double[][] getFileContent(File file) throws IOException {

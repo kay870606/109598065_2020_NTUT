@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="DeviceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-08-26T01:14:03" hostname="CSIE-3-4" time="0.003">
+  <properties/>
+  <testcase name="testGateAND" classname="DeviceTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

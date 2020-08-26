@@ -2,8 +2,8 @@ public class GateOR extends Device {
     @Override
     public boolean getOutput() {
         boolean output = false;
-        for (int i = 0; i < iPins.size(); i++) {
-            if (iPins.get(i).getOutput() == true)
+        for (Device iPin : iPins) {
+            if (iPin.getOutput())
                 output = true;
         }
         return output;
