@@ -8,7 +8,7 @@ public class LogicSimulator {
 
     public boolean load(String path) throws IOException {
         boolean isLoad = false;
-        dd();
+        resetAllVectors();
         File file = new File(path);
         if (file.canRead()) {
             double[][] fileContent = getFileContent(file);
@@ -67,7 +67,7 @@ public class LogicSimulator {
         return oPins.size();
     }
 
-    private void dd(){
+    private void resetAllVectors(){
         circuits = new Vector<>();
         iPins = new Vector<>();
         oPins = new Vector<>();
